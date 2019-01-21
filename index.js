@@ -1,28 +1,57 @@
-const { LineBot, LineHandler } = require('bottender');
+//FB
+const { MessengerBot } = require('bottender');
 const { createServer } = require('bottender/express');
 
-const bot = new LineBot({
-  channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-  accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+const config = require('./bottender.config').messenger;
+
+const bot = new MessengerBot({
+  accessToken: config.accessToken,
+  appSecret: config.appSecret,
 });
 
-const handler = new LineHandler()
-  .onText(/yo/i, async context => {
-    await context.sendText('Hi there!');
-  })
-  .onEvent(async context => {
-    await context.sendText("I don't know what you say.");
-  })
-  .onError(async context => {
-    await context.sendText('Something wrong happened.');
-  });
+bot.onEvent(async context => {
+  await context.sendText('Hello World');
+});
 
-bot.onEvent(handler);
+const server = createServer(bot, { verifyToken: config.verifyToken });
 
-const server = createServer(bot);
 server.listen(8080, () => {
   console.log('server is running on 8080 port...');
 });
+
+
+
+//LINE
+// const { LineBot, LineHandler } = require('bottender');
+// const { createServer } = require('bottender/express');
+
+// const bot = new LineBot({
+//   channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+//   accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+// });
+
+// const handler = new LineHandler()
+//   .onText(/yo/i, async context => {
+//     await context.sendText('Hi there!');
+//   })
+//   .onEvent(async context => {
+//     await context.sendText("I don't know what you say.");
+//   })
+//   .onError(async context => {
+//     await context.sendText('Something wrong happened.');
+//   });
+
+// bot.onEvent(handler);
+
+// const server = createServer(bot);
+// server.listen(8080, () => {
+//   console.log('server is running on 8080 port...');
+// });
+
+
+
+
+
 // const server = app.listen(process.env.PORT || 8080, () => {
 //   const host = server.address().address;
 //   const port = server.address().port;
