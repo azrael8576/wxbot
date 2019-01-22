@@ -1,4 +1,8 @@
-//FB
+const express = require('express');
+const bodyParser = require('body-parser');
+const config = require('./bottender.config').messenger;
+
+// Platforms
 const {
   MessengerBot,
   MessengerHandler,
@@ -8,9 +12,13 @@ const {
 
 const { createServer } = require('bottender/express');
 
-const config = require('./bottender.config').messenger;
+const server = express();
 
-
+server.use(bodyParser.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf.toString();
+  },
+}));
 
 const messengerhandler = new MessengerHandler()
   .onText(/yo/i, async context => {
@@ -35,8 +43,8 @@ const linehandler = new LineHandler()
   });
 
 // Choose platform
-let bot;
-bot = {
+let bots;
+bots = {
   messenger: new MessengerBot({
     accessToken: config.accessToken,
     appSecret: config.appSecret,
