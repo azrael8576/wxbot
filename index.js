@@ -54,10 +54,11 @@ createServer(server, bots.line, {
   path: '/line'
 });
 createServer(server, bots.messenger, {
-  path: '/messenger'
+  path: '/messenger',
+  verifyToken: config.verifyToken
 });
 
-server.listen(process.env.PORT || 8080, () => {
+server.listen(8080, () => {
   console.log('server is running on 8080 port...');
 });
 
