@@ -1,6 +1,7 @@
 //FB
 const {
   MessengerBot,
+  MessengerHandler,
   LineBot,
   LineHandler
 } = require('bottender');
@@ -9,7 +10,7 @@ const { createServer } = require('bottender/express');
 
 const config = require('./bottender.config').messenger;
 
-const handler = new LineHandler()
+const handler = new MessengerHandler()
   .onText(/yo/i, async context => {
     await context.sendText('Hi there!');
   })
