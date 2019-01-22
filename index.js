@@ -45,11 +45,11 @@ const linehandler = new LineHandler()
 // Choose platform
 let bots;
 bots = {
-  messenger: new MessengerBot({
-    accessToken: config.accessToken,
-    appSecret: config.appSecret,
-  })
-    .onEvent(messengerhandler),
+  // messenger: new MessengerBot({
+  //   accessToken: config.accessToken,
+  //   appSecret: config.appSecret,
+  // })
+  //   .onEvent(messengerhandler),
 
   line: new LineBot({
     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
@@ -61,10 +61,11 @@ bots = {
 createServer(server, bots.line, {
   path: '/line'
 });
-createServer(server, bots.messenger, {
-  path: '/messenger',
-  verifyToken: config.verifyToken
-});
+
+// createServer(server, bots.messenger, {
+//   path: '/messenger',
+//   verifyToken: config.verifyToken
+// });
 
 server.listen(8080, () => {
   console.log('server is running on 8080 port...');
