@@ -1,8 +1,10 @@
 //FB
 const {
   MessengerBot,
-  LineBot
+  LineBot,
+  LineHandler
 } = require('bottender');
+
 const { createServer } = require('bottender/express');
 
 const config = require('./bottender.config').messenger;
@@ -31,9 +33,9 @@ bot = {
   // }).onEvent(handler),
 };
 
-bot.onEvent(async context => {
-  await context.sendText('Hello World');
-});
+// bot.onEvent(async context => {
+//   await context.sendText('Hello World');
+// });
 
 const server = createServer(bot, { verifyToken: config.verifyToken });
 
