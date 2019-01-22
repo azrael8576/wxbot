@@ -12,7 +12,7 @@ const {
 
 const { createServer } = require('bottender/express');
 
-const server = express();
+// const server = express();
 
 // server.use(bodyParser.json({
 //   verify: (req, res, buf) => {
