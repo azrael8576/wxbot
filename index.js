@@ -22,26 +22,31 @@ const handler = new MessengerHandler()
   });
 
 // Choose platform
-let bot;
-bot = new MessengerBot({
+let messengerbot;
+messengerbot = new MessengerBot({
   accessToken: config.accessToken,
   appSecret: config.appSecret,
-})
-// line: new LineBot({
-//     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-//     accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
-// }).onEvent(handler),
-// };
+});
 
-bot.onEvent(handler);
-// bot.onEvent(async context => {
-//   await context.sendText('Hello World');
-// });
+let linebot;
+linebot = new LineBot({
+  channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+  accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+});
 
-const server = createServer(bot, { verifyToken: config.verifyToken });
 
-server.listen(8080, () => {
-  console.log('server is running on 8080 port...');
+messengerbot.onEvent(handler);
+linebot.onEvent(handler);
+
+const messengerserver = createServer(messengerbot, { verifyToken: config.verifyToken });
+const lineserver = createServer(linebot);
+
+messengerserver.listen(8080, () => {
+  console.log('messenger server is running on 8080 port...');
+});
+
+linebot.listen(5000, () => {
+  console.log('line server is running on 5000 port...');
 });
 
 
