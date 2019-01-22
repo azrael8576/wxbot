@@ -4,15 +4,14 @@ const config = require('./bottender.config').messenger;
 
 // Platforms
 const {
-  MessengerBot,
-  MessengerHandler,
   LineBot,
   LineHandler,
+  MessengerBot,
+  MessengerHandler,
   Handler
 } = require('bottender');
 
 const { registerRoutes } = require('bottender/express');
-
 
 const handler = new Handler()
   .onText(/yo/i, async context => {
@@ -24,7 +23,6 @@ const handler = new Handler()
   .onError(async context => {
     await context.sendText('Something wrong happened.');
   });
-
 
 const server = express();
 
@@ -51,7 +49,6 @@ bots = {
     .onEvent(handler),
 };
 
-
 registerRoutes(server, bots.line, {
   path: '/line'
 });
@@ -64,17 +61,6 @@ registerRoutes(server, bots.messenger, {
 server.listen(8080, () => {
   console.log('server is running on 8080 port...');
 });
-
-// const messengerserver = createServer(bot.messenger, { verifyToken: config.verifyToken });
-// const lineserver = createServer(bot.line);
-
-// messengerserver.listen(8080, () => {
-//   console.log('messenger server is running on 8080 port...');
-// });
-
-// lineserver.listen(5000, () => {
-//   console.log('line server is running on 5000 port...');
-// });
 
 
 

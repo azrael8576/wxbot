@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const config = require('./config');
 const config = require('./bottender.config').messenger;
 
 const MAX_ITEMS_IN_CACHE = 500;
@@ -11,11 +10,9 @@ global.CLOUD_POOL_SIZE = 0;
 // Platforms
 const {
     LineBot,
+    LineHandler,
     MessengerBot,
     MessengerHandler,
-    LineHandler,
-    // TelegramBot,
-    // ConsoleBot,
     MemorySessionStore
 } = require('bottender');
 
@@ -34,6 +31,7 @@ const messengerhandler = new MessengerHandler()
     .onError(async context => {
         await context.sendText('Something wrong happened.');
     });
+
 const linehandler = new LineHandler()
     .onText(/yo/i, async context => {
         await context.sendText('Hi there!');
@@ -65,12 +63,6 @@ const sessData = {
 
 // Choose platform
 let bots;
-// if (process.argv[2] == "console") {
-//     bots = new ConsoleBot({
-//         fallbackMethods: true,
-//     }).onEvent(handler);
-//     bots.createRuntime();
-// } else {
 bots = {
     messenger: new MessengerBot({
         accessToken: config.accessToken,
@@ -83,11 +75,6 @@ bots = {
         sessionStore: mSession,
     }).setInitialState(sessData).
         onEvent(linehandler),
-    // telegram: new TelegramBot({
-    //     accessToken: config.telegramAccessToken,
-    //     sessionStore: mSession,
-    // }).setInitialState(sessData).
-    // onEvent(handler),
 };
 registerRoutes(server, bots.messenger, {
     path: '/messenger',
@@ -96,10 +83,7 @@ registerRoutes(server, bots.messenger, {
 registerRoutes(server, bots.line, {
     path: '/line'
 });
-// registerRoutes(server, bots.telegram, {
-//     path: '/telegram'
-// });
+
 server.listen(8080, () => {
     console.log('server is running on 5000 port...');
 });
-// }
