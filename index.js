@@ -44,20 +44,20 @@ const linehandler = new LineHandler()
   });
 
 // Choose platform
-// let bots;
-// bots = {
-//   // messenger: new MessengerBot({
-//   //   accessToken: config.accessToken,
-//   //   appSecret: config.appSecret,
-//   // })
-//   //   .onEvent(messengerhandler),
+let bots;
+bots = {
+  // messenger: new MessengerBot({
+  //   accessToken: config.accessToken,
+  //   appSecret: config.appSecret,
+  // })
+  //   .onEvent(messengerhandler),
 
-//   line: new LineBot({
-//     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-//     accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
-//   })
-//     .onEvent(linehandler),
-// };
+  line: new LineBot({
+    channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+    accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+  })
+    .onEvent(linehandler),
+};
 
 // createServer(server, bots.line, {
 //   path: '/line'
@@ -68,14 +68,14 @@ const linehandler = new LineHandler()
 //   verifyToken: config.verifyToken
 // });
 
-let bot = new LineBot({
-  channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-  accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
-});
+// let bot = new LineBot({
+//   channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+//   accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+// });
+// bot.onEvent(linehandler);
 
-bot.onEvent(linehandler);
 
-const server = createServer(bot);
+const server = createServer(bots.line);
 
 server.listen(8080, () => {
   console.log('server is running on 8080 port...');
