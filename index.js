@@ -23,17 +23,17 @@ const handler = new MessengerHandler()
 
 // Choose platform
 let bot;
-bot = {
-  messenger: new MessengerBot({
-    accessToken: config.accessToken,
-    appSecret: config.appSecret,
-  }).onEvent(handler),
-  // line: new LineBot({
-  //     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-  //     accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
-  // }).onEvent(handler),
-};
+bot = new MessengerBot({
+  accessToken: config.accessToken,
+  appSecret: config.appSecret,
+})
+// line: new LineBot({
+//     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+//     accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+// }).onEvent(handler),
+// };
 
+bot.onEvent(handler);
 // bot.onEvent(async context => {
 //   await context.sendText('Hello World');
 // });
