@@ -7,6 +7,17 @@ const { createServer } = require('bottender/express');
 
 const config = require('./bottender.config').messenger;
 
+const handler = new LineHandler()
+  .onText(/yo/i, async context => {
+    await context.sendText('Hi there!');
+  })
+  .onEvent(async context => {
+    await context.sendText("I don't know what you say.");
+  })
+  .onError(async context => {
+    await context.sendText('Something wrong happened.');
+  });
+
 // Choose platform
 let bot;
 bot = {
