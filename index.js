@@ -14,23 +14,23 @@ const { createServer } = require('bottender/express');
 
 const server = express();
 
-server.use(bodyParser.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf.toString();
-    console.log(req.route)
-  },
-}));
+// server.use(bodyParser.json({
+//   verify: (req, res, buf) => {
+//     req.rawBody = buf.toString();
+//     console.log(req.route)
+//   },
+// }));
 
-const messengerhandler = new MessengerHandler()
-  .onText(/yo/i, async context => {
-    await context.sendText('Hi there!');
-  })
-  .onEvent(async context => {
-    await context.sendText("I don't know what you say.");
-  })
-  .onError(async context => {
-    await context.sendText('Something wrong happened.');
-  });
+// const messengerhandler = new MessengerHandler()
+//   .onText(/yo/i, async context => {
+//     await context.sendText('Hi there!');
+//   })
+//   .onEvent(async context => {
+//     await context.sendText("I don't know what you say.");
+//   })
+//   .onError(async context => {
+//     await context.sendText('Something wrong happened.');
+//   });
 
 const linehandler = new LineHandler()
   .onText(/yo/i, async context => {
@@ -44,34 +44,42 @@ const linehandler = new LineHandler()
   });
 
 // Choose platform
-let bots;
-bots = {
-  // messenger: new MessengerBot({
-  //   accessToken: config.accessToken,
-  //   appSecret: config.appSecret,
-  // })
-  //   .onEvent(messengerhandler),
+// let bots;
+// bots = {
+//   // messenger: new MessengerBot({
+//   //   accessToken: config.accessToken,
+//   //   appSecret: config.appSecret,
+//   // })
+//   //   .onEvent(messengerhandler),
 
-  line: new LineBot({
-    channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
-    accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
-  })
-    .onEvent(linehandler),
-};
+//   line: new LineBot({
+//     channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+//     accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+//   })
+//     .onEvent(linehandler),
+// };
 
-createServer(server, bots.line, {
-  path: '/line'
-});
+// createServer(server, bots.line, {
+//   path: '/line'
+// });
 
 // createServer(server, bots.messenger, {
 //   path: '/messenger',
 //   verifyToken: config.verifyToken
 // });
 
+let bot = new LineBot({
+  channelSecret: '03b7de370e0d852fe25b7b0e3b8f16f7',
+  accessToken: 'yIVA22uhyV5bjZeuM1VdeTCxj3idljOSBPdUcGMpDrbVzYAMkbqwh1y1EzLlLFUpIjnG9J+tsvvgkyFUP6dxshykZw60hu9QNnn8On+bBX7uSzKmzfJhVg4WP4FVhy5N9uKGjnkxSFMuCKGLHQC98QdB04t89/1O/w1cDnyilFU=',
+});
+
+bot.onEvent(linehandler);
+
+const server = createServer(bot);
+
 server.listen(8080, () => {
   console.log('server is running on 8080 port...');
 });
-
 // const messengerserver = createServer(bot.messenger, { verifyToken: config.verifyToken });
 // const lineserver = createServer(bot.line);
 
