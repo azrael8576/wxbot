@@ -22,7 +22,7 @@ request(url, (err, res, body) => {
     }))
 
     //console.log(weathers)
-    //return console.log(weathers);
+    return weathers[0];
 })
 
-
+module.exports = cwbcrawler;
