@@ -19,7 +19,7 @@ async function textHandle(context, text) {
     if (msg == 'hi') { replyMsg = 'Hello'; }
     if (msg == 'howareyou') { replyMsg = 'I am fine,You can enter \'help\' to view the command'; }
     if (msg == 'help') { replyMsg = '＊[City] （ex：台北）\n Currently only supports Taiwan city weather'; }
-    if (msg == '臺北') { replyMsg = '台北降雨機率：\n' + await getAreaWeather(); }
+    if (msg == '臺北') { replyMsg = '台北降雨機率：\n' + await getAreaWeather(msg); }
 
 
     await platformReplyText(context, replyMsg);
