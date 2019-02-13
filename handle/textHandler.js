@@ -8,6 +8,7 @@ const {
 } = require("./crossPlatformHandle");
 const stations = require('../data/CWB_stations_location.json');
 
+
 async function textHandle(context, text) {
     let msg = text;
     // trim space and change charactor
@@ -18,6 +19,7 @@ async function textHandle(context, text) {
     var replyMsg = "你可以輸入\'help\'查看我的指令";
     if (msg == 'hi' || msg == '嗨' || msg == '妳好' || msg == '你好') { replyMsg = 'Hello,我是你的個人助理. \n你可以輸入\'help\'查看我的指令'; }
     if (msg == 'howareyou' || msg == 'howareyou?') { replyMsg = 'I am fine,You can enter \'help\' to view the command'; }
+    if (msg == '台鐵') { replyMsg = 'I am fine,You can enter \'help\' to view the command'; }
     if (msg == 'help') { replyMsg = '＊[City] （ex：台北市）\n目前暫時只支援台灣城市天氣\n請輸入完整「縣 or 市」\n＊講笑話\n\n\n---------------------\n回饋 & Bug回報：https://goo.gl/forms/jy2EXg3G3bD9MGWl2 \n\n目前支援平台：LINE、Messenger'; }
     //爬蟲天氣
     for (const stid in stations) {
