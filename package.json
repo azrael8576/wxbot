@@ -11,6 +11,7 @@
     "bottender": "0.15.15",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
+    "messaging-api-line": "^0.8.0-alpha.1",
     "nodemon": "1.18.9",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
