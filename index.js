@@ -76,7 +76,7 @@ if (process.argv[2] == "console") {
     var userId = req.body.userId
     let msg = req.body.city;
     let platform = req.body.platform;
-
+    let sysTime = req.body.sysTime;
     //爬蟲天氣
     for (const stid in stations) {
       if (msg == stid) { replyMsg = await getAreaWeather(msg); }
@@ -85,29 +85,15 @@ if (process.argv[2] == "console") {
       client.push(userId, [
         {
           type: 'text',
-          text: "******訂閱推播******\n" + replyMsg,
+          text: "******訂閱推播******\n" + replyMsg + '\n發送時間' + sysTime + '\n＊欲取消訂閱請回覆"取消訂閱"',
         },
       ]);
       res.send('success post to userId: ' + userId)
     }
     else if (platform == 2) {
-      messageClient.sendTextMessage(userId, "******訂閱推播******\n" + replyMsg + "\n\n＊FB因為政策關係請回覆我\"續訂\"")
+      messageClient.sendTextMessage(userId, "******訂閱推播******\n" + replyMsg + "\n發送時間" + sysTime + '\n＊欲取消訂閱請回覆"取消訂閱"\n＊FB用戶請回覆我"續訂"')
       res.send('success post to userId: ' + userId)
     }
-
-    // let userId = 'U0051e296713d9446d34a22013834ad81';
-    // let msg = '臺北市';
-    // //爬蟲天氣
-    // for (const stid in stations) {
-    //   if (msg == stid) { replyMsg = await getAreaWeather(msg); }
-    // }
-
-    // client.push(userId, [
-    //   {
-    //     type: 'text',
-    //     text: replyMsg,
-    //   },
-    // ]);
   });
   // 將路由套用至應用程式
   server.use('/post', router);
