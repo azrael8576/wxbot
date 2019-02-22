@@ -12,5 +12,14 @@
 # limitations under the License.
 
 # [START app_yaml]
-runtime: nodejs8
+runtime: nodejs
+env: flex
+
+automatic_scaling:
+  max_num_instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
 # [END app_yaml]

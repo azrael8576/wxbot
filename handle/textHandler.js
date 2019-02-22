@@ -37,7 +37,7 @@ async function textHandle(context, text) {
             body: myJSONObject
         }, function (error, response, body) {
             if (!error && response.statusCode == 204) {
-                replyMsg = "已為您取消每日天氣推播";
+                replyMsg = "已為您取消每日天氣訂閱";
             }
             else {
                 replyMsg = '取消失敗\n請聯繫小編';
